@@ -220,7 +220,7 @@ export default function MemberRegistrationForm() {
         const responseData = await response.json()
 
         if (response.ok) {
-          setSuccessMessage("Member created successfully!")
+          setSuccessMessage("Agent created successfully!")
           // Reset form
           setFormData({
             first_name: "",
@@ -238,7 +238,7 @@ export default function MemberRegistrationForm() {
           }, 10000)
         } else {
           // Show the specific error message from the API
-          setErrorMessage(responseData.message || responseData.error || "Failed to create member. Please try again.")
+          setErrorMessage(responseData.message || responseData.error || "Failed to create Agent. Please try again.")
 
           // Auto-hide error message after 8 seconds
           setTimeout(() => {

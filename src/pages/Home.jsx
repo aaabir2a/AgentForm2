@@ -17,9 +17,21 @@ function Home() {
           <img src="/logo.png" alt="Company Logo" width={180} height={150} style={{ maxWidth: "100%" }} />
         </Box>
 
-        <Typography variant="h4" component="h1" gutterBottom sx={{ mb: 3 }}>
-          Agent Registration Form
-        </Typography>
+        <Typography
+  variant="h4"
+  component="h1"
+  gutterBottom
+  sx={{
+    mb: 3,
+    fontSize: {
+      xs: '1.5rem',  // for small screens
+      sm: '2rem',    // for tablets
+      md: '2.5rem',  // for desktops
+    },
+  }}
+>
+  Agent Registration Form
+</Typography>
 
         <Box sx={{ width: "100%", maxWidth: "600px", mx: "auto" }}>
           <MemberRegistrationForm />

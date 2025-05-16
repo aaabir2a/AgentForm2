@@ -1,5 +1,6 @@
 // API endpoints and other constants
-export const BASE_URL = "https://apibustours.dreamtourism.co.uk"
+export const BASE_URL = "https://apibustours.dreamtourism.it/"
+
 
 // API endpoints
 export const API_ENDPOINTS = {

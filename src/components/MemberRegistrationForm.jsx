@@ -69,7 +69,7 @@ export default function MemberRegistrationForm() {
   const [loading, setLoading] = useState(false)
   const [successMessage, setSuccessMessage] = useState("")
   const [errorMessage, setErrorMessage] = useState("")
-  const [countryCode, setCountryCode] = useState("+44")
+  const [countryCode, setCountryCode] = useState("+39")
   const [phoneNumber, setPhoneNumber] = useState("")
 
   // Find the country object for the current country code
@@ -218,6 +218,7 @@ export default function MemberRegistrationForm() {
         })
 
         const responseData = await response.json()
+        console.log("API Response:", responseData); // Add this for debugging
 
         if (response.ok) {
           setSuccessMessage("Agent created successfully!")
@@ -237,13 +238,30 @@ export default function MemberRegistrationForm() {
             setSuccessMessage("")
           }, 10000)
         } else {
-          // Show the specific error message from the API
-          setErrorMessage(responseData.message || responseData.error || "Failed to create Agent. Please try again.")
-
-          // Auto-hide error message after 8 seconds
-          setTimeout(() => {
-            setErrorMessage("")
-          }, 8000)
+          if (!response.ok) {
+            if (typeof responseData === "object" && !Array.isArray(responseData)) {
+              const newErrors = {}
+              for (const key in responseData) {
+                if (Array.isArray(responseData[key]) && responseData[key].length > 0) {
+                  newErrors[key] = responseData[key][0] // Take the first error message
+                }
+              }
+          
+              if (Object.keys(newErrors).length > 0) {
+                setErrors((prev) => ({ ...prev, ...newErrors }))
+                setErrorMessage("Please fix the highlighted errors and try again.")
+              } else {
+                setErrorMessage("Failed to create Agent. Please try again.")
+              }
+            } else {
+              setErrorMessage("Failed to create Agent. Please try again.")
+            }
+          
+            setTimeout(() => {
+              setErrorMessage("")
+            }, 8000)
+          }
+          
         }
       } catch (error) {
         console.error("Error submitting form:", error)
